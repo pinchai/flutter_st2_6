@@ -1,5 +1,5 @@
 # Dart OOP Concept
-
+## REF URL : https://dart-tutorial.com/object-oriented-programming/encapsulation-in-dart/
 ### Class
 
 ```dart
@@ -172,7 +172,7 @@ void main() {
 }
 ```
 
-# ENCAPSULATION IN DART
+## ENCAPSULATION IN DART
 ```dart
 class Employee {
   // Private properties
@@ -198,6 +198,33 @@ class Employee {
   
 }
 
+//build-in getter and setter
+class Employee {
+  // Private properties
+  int? _id;
+  String? _name;
+
+  // Constructor
+  Employee(this._id, this._name);
+
+  // Getter method to access private property _name
+  int get id => this._id;
+
+  // Getter method to access private property _prize
+  String get name => this._name;
+
+  // Setter to update private property _name
+  set name(String name) => this._name = name;
+  
+  //*** OR THIS
+  // Setter to update private property _age
+  set name(String? name) {
+    this._name = name;
+  }
+}
+
+
+
 void main() {
   // Create an object of Employee class
   Employee emp = new Employee();
@@ -208,5 +235,92 @@ void main() {
   // Retrieve the values of the object using getter
   print("Id: ${emp.getId()}");
   print("Name: ${emp.getName()}");
+}
+```
+
+## INHERITANCE
+```
+Inheritance is a sharing of behaviour between two classes. 
+It allows you to define a class that extends the functionality of another class. 
+The extend keyword is used for inheriting from parent class.
+```
+
+```dart
+class ParentClass {
+  // Parent class code
+}
+
+class ChildClass extends ParentClass {
+  // Child class code
+}
+```
+
+```dart
+class Car{
+  String color;
+  int year;
+
+  void start(){
+    print("Car started");
+  }
+}
+
+class Toyota extends Car{
+  String model;
+  int price;
+
+  void showDetails(){
+    print("Model: $model");
+    print("Price: $price");
+  }
+}
+
+void main(){
+  var toyota = Toyota();
+  toyota.color = "Red";
+  toyota.year = 2020;
+  toyota.model = "Camry";
+  toyota.price = 20000;
+  toyota.start();
+  toyota.showDetails();
+}
+```
+
+### multiple inheritance
+```dart
+class Car {
+// Properties
+String? name;
+double? price;
+}
+
+class Tesla extends Car {
+// Method to display the values of the properties
+void display() {
+  print("Name: ${name}");
+  print("Price: ${price}");
+}
+}
+
+class Model3 extends Tesla {
+// Properties
+String? color;
+
+// Method to display the values of the properties
+void display() {
+  super.display();
+  print("Color: ${color}");
+}
+}
+
+void main() {
+// Create an object of Model3 class
+Model3 m = new Model3();
+// setting values to the object
+m.name = "Tesla Model 3";
+m.price = 50000.00;
+m.color = "Red";
+// Display the values of the object
+m.display();
 }
 ```
