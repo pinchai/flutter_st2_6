@@ -172,7 +172,7 @@ void main() {
 }
 ```
 
-## ENCAPSULATION IN DART
+## xx IN DART
 ```dart
 class Employee {
   // Private properties
