@@ -1,82 +1,85 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(Button());
+void main() {
+  runApp(SampleForm());
+}
 
-class Button extends StatelessWidget {
-  Button({super.key});
+class SampleForm extends StatefulWidget {
+  const SampleForm({super.key});
 
-  final _formKey = GlobalKey<FormState>();
+  @override
+  State<SampleForm> createState() => _SampleFormState();
+}
+
+class _SampleFormState extends State<SampleForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Themed App',
-      darkTheme: ThemeData(),
-      themeMode: ThemeMode.dark,
       home: Scaffold(
-        body: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+        appBar: AppBar(
+          title: Text("New Product Form"),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Form(
+            key: _formKey,
             child: Column(
               children: [
-                SizedBox(
-                  height: 100,
-                ),
-                Image(
-                  image: NetworkImage(
-                      "https://cdni.iconscout.com/illustration/premium/thumb/login-illustration-download-in-svg-png-gif-file-formats--select-an-account-join-the-forum-password-digital-marketing-pack-business-illustrations-8333958.png"),
-                  width: 300,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
                 TextFormField(
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text("Name"),
+                    labelStyle: TextStyle(fontSize: 18, color: Colors.grey),
+                  ),
+                  onSaved: (value){
+                    print(value);
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'UserName',
-                    border: OutlineInputBorder(), // Add border to the field
+                    border: OutlineInputBorder(),
+                    label: Text("Cost"),
+                    labelStyle: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your user name'; // Simple validation
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    print(value);
-                  },
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
-                TextFormField(
+                TextField(
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(), // Add border to the field
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password'; // Simple validation
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    print(value);
-                  },
+                      border: OutlineInputBorder(),
+                      label: Text("Price"),
+                      labelStyle: TextStyle(fontSize: 18, color: Colors.grey)),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // If the form is valid, save the input and show a message
-                      _formKey.currentState!.save();
-                    }
-                  },
-                  child: Text('Submit'),
-                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text("Cancel"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.redAccent,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        _formKey.currentState!.save();
+                      },
+                      child: Text("Save"),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'detail.dart';
+
 void main() {
   runApp(FakeStore());
 }
@@ -24,11 +26,11 @@ class FakeStore extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Fake Store"),
-          leading: Icon(Icons.store),
-          actions: [
+          title: const Text("Fake Store"),
+          leading: const Icon(Icons.store),
+          actions: const [
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: EdgeInsets.only(right: 20),
               child: Icon(Icons.shopping_cart),
             )
           ],
@@ -60,36 +62,47 @@ class FakeStore extends StatelessWidget {
                     childAspectRatio: 0.75, // Aspect ratio of grid items
                   ),
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        print(product[index]['id']);
-                      },
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 0),
                       child: Card(
-                        elevation: 3,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            SizedBox(
+                              height: 10,
+                            ),
                             Expanded(
-                              child: Image.network(
-                                product[index]['image'],
-                                fit: BoxFit.contain,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailScreen(data:  product[index]['id']),
+                                    ),
+                                  );
+                                },
+                                child: Image.network(
+                                  product[index]['image'],
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 product[index]['title'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               child: Text(
                                 "${product[index]['price'].toString()} \$",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.red,
                                   fontSize: 18,
                                 ),
@@ -104,15 +117,19 @@ class FakeStore extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
+                                    onPressed: () {
+                                      print("Favorite");
+                                    },
+                                    icon: const Icon(
                                       Icons.favorite,
                                       color: Colors.deepOrangeAccent,
                                     ),
                                   ),
                                   IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
+                                    onPressed: () {
+                                      print("Add to Cart");
+                                    },
+                                    icon: const Icon(
                                       Icons.add_shopping_cart,
                                       color: Colors.orange,
                                     ),
@@ -127,7 +144,7 @@ class FakeStore extends StatelessWidget {
                   },
                 );
               }
-              return Text("No widget to build");
+              return const Text("No widget to build");
             }),
       ),
     );
