@@ -63,7 +63,7 @@ class FakeStore extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 0),
+                      padding: const EdgeInsets.only(top: 10),
                       child: Card(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,

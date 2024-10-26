@@ -61,6 +61,12 @@ class _SendDataScreenState extends State<SendDataScreen> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
+            TextFormField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.lock),
+                suffixIcon: Icon(Icons.visibility)
+              ),
+            ),
             TextField(
               controller: _controller,
               decoration: InputDecoration(labelText: 'Enter text'),

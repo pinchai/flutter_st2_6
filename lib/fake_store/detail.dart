@@ -15,6 +15,7 @@ class DetailScreen extends StatelessWidget {
         Duration(seconds: 5)); // Simulating a network call delay
     return 'Fetched Data: Details loaded after 5 seconds!';
   }
+
   Future<Map> _getProductDetail() async {
     var url = Uri.parse("https://fakestoreapi.com/products/${this.data}");
     var respone = await http.get(url);
@@ -42,22 +43,83 @@ class DetailScreen extends StatelessWidget {
                       strokeWidth: 5,
                     ),
                   ); // Loading spinner
-                }
-                else if (snapshot.hasError) {
+                } else if (snapshot.hasError) {
                   return Center(
-                      child: Text('Error: ${snapshot.error}')); // Error handling
+                      child:
+                          Text('Error: ${snapshot.error}')); // Error handling
                 } else {
                   return Container(
-                    height: 150,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      // color: Colors.red,
                       borderRadius: BorderRadius.circular(15), //DecorationImage
                     ),
                     child: Column(
                       children: [
-                        Image.network("${snapshot.data!['image']}", width: 200,),
-                        Text("${snapshot.data!['title']}")
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Flexible(
+                          flex: 2,
+                          fit: FlexFit.tight,
+                          child: Image.network(
+                            "${snapshot.data!['image']}",
+                            width: 300,
+                          ), //Container
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Flexible(
+                            flex: 4,
+                            fit: FlexFit.tight,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "${snapshot.data!['title']}",
+                                    style: TextStyle(
+                                        fontSize: 18, fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(height: 20),
+                                  Text(
+                                    "${snapshot.data!['description']}",
+                                    style: TextStyle(
+                                        fontSize: 14),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ) //Container
+                        ),
+                        Flexible(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              "Total: ",
+                              style: TextStyle(fontSize: 25),
+                            ),
+                            Text(
+                              "\$${snapshot.data!['price']}",
+                              style: TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.bold, color: Colors.red),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                print("checkout");
+                              },
+                              child: Text(
+                                "CheckOut",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                            )
+                          ],
+                        ) //Container
+                            ),
                       ],
                     ),
                   ); // Display fetched data
